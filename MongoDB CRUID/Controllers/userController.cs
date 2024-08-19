@@ -7,23 +7,26 @@ namespace MongoDB_CRUID.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class userController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserManager _userManager;
 
-        public userController(IUserManager userManager)
+        public UsersController(IUserManager userManager)
         {
             _userManager = userManager;
         }
 
-        [HttpGet(Name = "GetAllUsers")]
+
+        [HttpGet]
+        [Route("")]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
         {
             var users = await _userManager.GetAllUsersAsync();
             return Ok(users);
         }
 
-        [HttpGet("{id}", Name = "GetUserById")]
+        [HttpGet]
+        [Route("{id}/GetUser")]
         public async Task<ActionResult<User>> GetUserById(string id)
         {
             var user = await _userManager.GetUserByIdAsync(id);
@@ -36,15 +39,17 @@ namespace MongoDB_CRUID.Controllers
             return Ok(user);
         }
 
-        [HttpPost(Name = "CreateUser")]
-        public async Task<ActionResult> CreateUser(User newUser)
+        [HttpPost]
+        [Route("CreateUser")]
+        public async Task<ActionResult> CreateUser([FromBody] User newUser)
         {
             await _userManager.AddUserAsync(newUser);
             return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
         }
 
-        [HttpPut("{id}", Name = "UpdateUser")]
-        public async Task<IActionResult> UpdateUser(string id, User updatedUser)
+        [HttpPost]
+        [Route("{id}/UpdateUser")]
+        public async Task<IActionResult> UpdateUser(string id, [FromBody] User updatedUser)
         {
             var user = await _userManager.GetUserByIdAsync(id);
 
@@ -57,7 +62,8 @@ namespace MongoDB_CRUID.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}", Name = "DeleteUser")]
+        [HttpDelete]
+        [Route("{id}/DeleteUser")]
         public async Task<IActionResult> DeleteUser(string id)
         {
             var user = await _userManager.GetUserByIdAsync(id);

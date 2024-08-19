@@ -1,4 +1,5 @@
-﻿namespace MongoDB_CRUID
+﻿using MongoDB.Bson;
+namespace MongoDB_CRUID
 {
     public class MongoDBSettings
     {
