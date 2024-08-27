@@ -19,7 +19,7 @@ namespace MongoDB_CRUID.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+        public async Task<ActionResult<IEnumerable<adminusers>>> GetAllUsers()
         {
             var users = await _userManager.GetAllUsersAsync();
             return Ok(users);
@@ -27,7 +27,7 @@ namespace MongoDB_CRUID.Controllers
 
         [HttpGet]
         [Route("{id}/GetUser")]
-        public async Task<ActionResult<User>> GetUserById(string id)
+        public async Task<ActionResult<adminusers>> GetUserById(string id)
         {
             var user = await _userManager.GetUserByIdAsync(id);
 
@@ -41,7 +41,7 @@ namespace MongoDB_CRUID.Controllers
 
         [HttpPost]
         [Route("CreateUser")]
-        public async Task<ActionResult> CreateUser([FromBody] User newUser)
+        public async Task<ActionResult> CreateUser([FromBody] adminusers newUser)
         {
             await _userManager.AddUserAsync(newUser);
             return CreatedAtAction(nameof(GetUserById), new { id = newUser.Id }, newUser);
@@ -49,7 +49,7 @@ namespace MongoDB_CRUID.Controllers
 
         [HttpPost]
         [Route("{id}/UpdateUser")]
-        public async Task<IActionResult> UpdateUser(string id, [FromBody] User updatedUser)
+        public async Task<IActionResult> UpdateUser(string id, [FromBody] adminusers updatedUser)
         {
             var user = await _userManager.GetUserByIdAsync(id);
 

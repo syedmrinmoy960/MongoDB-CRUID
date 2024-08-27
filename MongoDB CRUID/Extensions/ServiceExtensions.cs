@@ -43,6 +43,10 @@ namespace MongoDB_CRUID.Extensions
             // Register repositories and managers with Scoped lifetime
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserManager, UserManager>();
+            services.AddScoped<ILoginManager, LoginManager>();
+            services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<IReportsManager, ReportManager>();
+            services.AddScoped<IReportRepository, ReportRepository>();
         }
     }
 }

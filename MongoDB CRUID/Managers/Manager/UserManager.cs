@@ -13,22 +13,22 @@ namespace MongoDB_CRUID.Managers.Manager
             _userRepository = userRepository;
         }
 
-        public async Task<List<User>> GetAllUsersAsync()
+        public async Task<List<adminusers>> GetAllUsersAsync()
         {
-            return (List<User>)await _userRepository.GetAllAsync();
+            return (List<adminusers>)await _userRepository.GetAllAsync();
         }
 
-        public async Task<User> GetUserByIdAsync(string id)
+        public async Task<adminusers> GetUserByIdAsync(string id)
         {
             return await _userRepository.GetByIdAsync(id);
         }
 
-        public async Task AddUserAsync(User user)
+        public async Task AddUserAsync(adminusers user)
         {
             await _userRepository.AddAsync(user);
         }
 
-        public async Task UpdateUserAsync(string id, User user)
+        public async Task UpdateUserAsync(string id, adminusers user)
         {
             await _userRepository.UpdateAsync(id, user);
         }

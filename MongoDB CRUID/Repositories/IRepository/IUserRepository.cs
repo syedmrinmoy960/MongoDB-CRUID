@@ -4,10 +4,10 @@ namespace MongoDB_CRUID.Repositories.IRepository
 {
     public interface IUserRepository
     {
-        Task<List<User>> GetAllAsync();
-        Task<User> GetByIdAsync(string id);
-        Task AddAsync(User user);
-        Task UpdateAsync(string id, User user);
+        Task<List<adminusers>> GetAllAsync();
+        Task<adminusers> GetByIdAsync(string id);
+        Task AddAsync(adminusers user);
+        Task UpdateAsync(string id, adminusers user);
         Task DeleteAsync(string id);
     }
 }
