@@ -1,7 +1,8 @@
 ﻿using MongoDB_CRUID.Managers.IManager;
 using MongoDB_CRUID.Models;
 using MongoDB_CRUID.Repositories.IRepository;
-using MongoDB_CRUID.Repositories.Repository;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MongoDB_CRUID.Managers.Manager
 {
@@ -13,16 +14,26 @@ namespace MongoDB_CRUID.Managers.Manager
         {
             _reportRepository = reportRepository;
         }
-        public async Task<List<eclogs>> GetAllEclogs()
+
+        /*public async Task<List<eclogs>> GetAllEclogs(string? requestFor = null)
         {
-            return (List<eclogs>)await _reportRepository.GetAllAlleclogs();
+            return await _reportRepository.GetAllAlleclogs(requestFor);
+        }*/
+
+        public async Task<List<eclogs>> GetAll(string? requestFor = null, DateTime? start = null, DateTime? end = null)
+        {
+            return await _reportRepository.GetAll(requestFor, start, end);
         }
 
-        public async Task<ReportSummary> GetReportSummary()
+
+
+        public async Task<ReportSummary> GetReportSummary(string? requestFor = null)
         {
-            return await _reportRepository.GetReportSummary();
+            return await _reportRepository.GetReportSummary(requestFor);
         }
-
-
-    }   
+        public async Task<List<string>> GetUniqueRequestForValues()
+        {
+            return await _reportRepository.GetUniqueRequestForValues();
+        }
+    }
 }

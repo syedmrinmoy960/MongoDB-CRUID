@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB_CRUID.Managers.IManager;
 using MongoDB_CRUID.Models;
 
@@ -17,21 +16,32 @@ namespace MongoDB_CRUID.Controllers
         }
 
         [HttpGet]
-        [Route("")]
-        public async Task<ActionResult<IEnumerable<eclogs>>> GetAllEclogs()
-        {
-            var eclogs = await _reportsManager.GetAllEclogs();
-            return Ok(eclogs);
-        }
+[Route("")]
+public async Task<ActionResult<IEnumerable<eclogs>>> GetAllEclogs(
+    [FromQuery] string? requestFor = null,
+    [FromQuery] DateTime? start = null,
+    [FromQuery] DateTime? end = null)
+{
+    var eclogs = await _reportsManager.GetAllEclogs(requestFor, start, end);
+    return Ok(eclogs);
+}
+
 
         [HttpGet]
         [Route("report-summary")]
-        public async Task<ActionResult<ReportSummary>> GetReportSummary()
+        public async Task<ActionResult<ReportSummary>> GetReportSummary(
+            [FromQuery] string? requestFor = null)
         {
-            var reportSummary = await _reportsManager.GetReportSummary();
+            var reportSummary = await _reportsManager.GetReportSummary(requestFor);
             return Ok(reportSummary);
         }
 
-
+        [HttpGet]
+        [Route("unique-requestfor")]
+        public async Task<ActionResult<IEnumerable<string>>> GetUniqueRequestForValues()
+        {
+            var uniqueRequestForValues = await _reportsManager.GetUniqueRequestForValues();
+            return Ok(uniqueRequestForValues);
+        }
     }
 }
