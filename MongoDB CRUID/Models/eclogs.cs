@@ -8,7 +8,7 @@ namespace MongoDB_CRUID.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }  
+        public ObjectId Id { get; set; }
 
         [BsonElement("request_body")]
         public string RequestBody { get; set; }
@@ -17,9 +17,12 @@ namespace MongoDB_CRUID.Models
         public DateTime Time { get; set; }
 
         [BsonElement("request_for")]
-        public string RequestFor { get; set; } 
+        public string RequestFor { get; set; }
 
         [BsonElement("status_code")]
-        public int StatusCode { get; set; } 
+        public int StatusCode { get; set; }
+
+        [BsonElement("api_name")]
+        public string ApiName { get; set; }
     }
 }
